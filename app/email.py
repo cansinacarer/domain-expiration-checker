@@ -17,7 +17,7 @@ def send_email(subject, message):
 
     # Set the email headers
     email_message["Subject"] = subject
-    email_message["From"] = f"Domain Notifier <{MAIL_FROM}>"
+    email_message["From"] = f"Domain Tracker <{MAIL_FROM}>"
     email_message["To"] = MAIL_RECIPIENT
 
     # Connect to the SMTP server
