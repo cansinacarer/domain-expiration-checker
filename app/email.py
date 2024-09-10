@@ -17,7 +17,7 @@ def send_email(subject, message):
 
     # Set the email headers
     email_message["Subject"] = subject
-    email_message["From"] = MAIL_FROM
+    email_message["From"] = f"Domain Notifier <{MAIL_FROM}>"
     email_message["To"] = MAIL_RECIPIENT
 
     # Connect to the SMTP server
@@ -34,7 +34,7 @@ def send_email(subject, message):
 
 
 def send_notification_for_domain_expiration(domain, results):
-    subject = f"{domain} expiration changed, sending email."
+    subject = f"{domain} expiration date has changed"
     message = f"""
         The expiration date for {domain} has changed to {results.expiration_date}.\n\n
         {results}
