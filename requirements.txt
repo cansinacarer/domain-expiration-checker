@@ -1,0 +1,4 @@
+python-dateutil==2.9.0.post0
+python-decouple==3.8
+python-whois==0.9.4
+six==1.16.0
