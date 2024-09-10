@@ -32,7 +32,7 @@ def check_domain_expiration_date(domain):
             )
 
             # Send an email notification
-            # send_notification_for_domain_expiration(domain, results)
+            send_notification_for_domain_expiration(domain, results)
 
     except Exception as e:
         print(f"An error occurred during whois lookup:\n{e}")
