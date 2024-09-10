@@ -17,14 +17,14 @@ def send_email(subject, message):
 
     # Set the email headers
     email_message["Subject"] = subject
-    email_message["From"] = f"Domain Tracker <{MAIL_FROM}>"
+    email_message["From"] = f"Cansin Domain Tracker <{MAIL_FROM}>"
     email_message["To"] = MAIL_RECIPIENT
 
     # Connect to the SMTP server
     smtp_server = smtplib.SMTP_SSL(MAIL_SERVER, MAIL_PORT)
 
     # Login to the sender's email account
-    smtp_server.login(MAIL_FROM, MAIL_PASSWORD)
+    smtp_server.login(MAIL_USERNAME, MAIL_PASSWORD)
 
     # Send the email
     smtp_server.send_message(email_message)
@@ -33,12 +33,10 @@ def send_email(subject, message):
     smtp_server.quit()
 
 
-def send_notification_for_domain_expiration(domain, results):
-    subject = f"{domain} expiration date has changed"
-    message = f"""
-        The expiration date for {domain} has changed to {results.expiration_date}.\n\n
-        {results}
-        """
+def send_notification_for_whois_update(domain, results):
+    subject = f"{domain} whois info updated"
+    message = f"The whois information for {domain} has been updated on {results.updated_date}.\n{results}"
+
     try:
         send_email(subject, message)
         print(f"Email notification sent for {domain}.")
