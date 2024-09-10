@@ -1,6 +1,9 @@
 import whois
 import os
-from app.email import send_notification_for_domain_expiration
+from app.email import (
+    send_notification_for_domain_expiration,
+    send_notification_for_error,
+)
 
 EXPIRATION_DATE_FILE = os.path.join(os.path.dirname(__file__), "expiration_date.txt")
 
@@ -36,3 +39,4 @@ def check_domain_expiration_date(domain):
 
     except Exception as e:
         print(f"An error occurred during whois lookup:\n{e}")
+        send_notification_for_error(domain)

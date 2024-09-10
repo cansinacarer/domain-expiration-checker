@@ -44,3 +44,13 @@ def send_notification_for_domain_expiration(domain, results):
         print(f"Email notification sent for {domain}.")
     except Exception as e:
         print(f"Error sending email: {e}")
+
+
+def send_notification_for_error(domain):
+    subject = f"{domain} whois lookup failed"
+    message = f"The whois lookup for {domain} has failed to complete."
+    try:
+        send_email(subject, message)
+        print(f"Email notification sent for {domain}.")
+    except Exception as e:
+        print(f"Error sending email: {e}")
