@@ -6,6 +6,7 @@ from app.email import (
 )
 
 UPDATE_DATE_FILE = os.path.join(os.path.dirname(__file__), "updated_date.txt")
+ERROR_COUNT_BEFORE_EMAIL = config("ERROR_COUNT_BEFORE_EMAIL", cast=int)
 
 
 def check_domain_updated_date(domain):
@@ -20,8 +21,12 @@ def check_domain_updated_date(domain):
 
     # Get the updated date of the domain
     try:
+        # Whois Lookup
         results = whois.whois(domain)
+
+        # If we reached here without an error, report the date and reset error counter
         print(f"The updated date of {domain} is {results.updated_date}")
+        error_count = 0
 
         # Compare the updated date with the last known date
         if str(results.updated_date) != last_known_date:
@@ -39,4 +44,8 @@ def check_domain_updated_date(domain):
 
     except Exception as e:
         print(f"An error occurred during whois lookup:\n{e}")
-        send_notification_for_error(domain)
+        error_count += 1
+
+        # If we exceeded the number of consecutive errors allowed before email notification, notify
+        if error_count > ERROR_COUNT_BEFORE_EMAIL:
+            send_notification_for_error(domain)
