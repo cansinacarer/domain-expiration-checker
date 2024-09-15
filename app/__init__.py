@@ -1,4 +1,5 @@
 import whois
+from decouple import config
 import os
 from app.email import (
     send_notification_for_whois_update,
